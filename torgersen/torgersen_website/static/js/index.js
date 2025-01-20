@@ -35,3 +35,12 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
         showError("Noe gikk galt. Prøv igjen senere.");
     });
 });
+
+// Switches visibility of password input
+document.getElementById("password-visibility-checkbox").addEventListener("click", function() {
+    if (document.getElementById("password-visibility-checkbox").checked) {
+        document.getElementById("id_password").type = "text";
+    } else {
+        document.getElementById("id_password").type = "password";
+    }
+})

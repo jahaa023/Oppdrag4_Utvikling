@@ -21,7 +21,30 @@
         <p class="create-account-warning" id="error-warning"></p>
         <form id="create-account-form" action="/create_account_form_handler" method="post">
             {% csrf_token %}
-            {{form}}
+            {{form.username}}
+            <div class="username-validate-container" id="username-validate-container">
+                <p id="username-validate-p">Brukernavnet ditt må:</p>
+                <ul id="username-validate-ul">
+                    <li id="ascii">Inneholde ingen bokstaver som ikke er engelske</li>
+                    <li id="whitespace">Ikke ha mellomrom</li>
+                    <li id="numeric">Ikke bare være tall</li>
+                    <li id="between">Være mellom 5 til 32 bokstaver</li>
+                    <li id="taken">Ikke være tatt</li>
+                </ul>
+            </div>
+            {{form.email}}
+            {{form.full_name}}
+            {{form.password}}
+            <input type="checkbox" id="password-visibility-checkbox" class="show-password-checkbox">
+            <label for="password-visibility-checkbox">Vis passord</label>
+            <div class="username-validate-container">
+                <p id="password-validate-p">Passordet ditt burde:</p>
+                <ul id="password-validate-ul">
+                    <li id="password-special">Inneholde 1 spesiell bokstav (f.eks ?#$)</li>
+                    <li id="password-case">Små og store bokstaver</li>
+                    <li id="password-lenght">Være minst 10 bokstaver langt</li>
+                </ul>
+            </div>
             <button type="submit" title="Lag konto">Lag konto</button>
         </form>
         <a href="/" class="backtologin">Tilbake til logg inn siden</a>

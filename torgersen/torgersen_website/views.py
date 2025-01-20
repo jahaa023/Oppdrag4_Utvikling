@@ -4,6 +4,7 @@ from .forms import LoginForm, CreateAccountForm
 from .models import users
 from django.contrib.auth.hashers import make_password, check_password
 import os
+import json
 
 # Create your views here.
 
@@ -117,5 +118,48 @@ def create_account_form_handler(request):
             return JsonResponse({"redirect" : 1})
         else:
             return JsonResponse({"error" : "invalid"})
+    else:
+        return HttpResponseForbidden("Method not Allowed")
+
+# Validates username as its being typed
+def username_validate(request):
+    if request.method == "POST":
+        # Convert post data to dict from json
+        data = json.loads(request.body)
+        username = data.get("username")
+
+        # Set the response
+        json_response = {
+            "ascii" : 0,
+            "whitespace" : 0,
+            "numeric" : 0,
+            "between" : 0,
+            "taken" : 0
+        }
+
+        # Check if username contains any non english chars
+        whitelist = "abcdefghijklmnopqrstuvwxyz1234567890 "
+        username_lower = username.lower()
+        for c in username_lower:
+            if c not in whitelist:
+                json_response["ascii"] = 1
+        
+        # Check if username contains whitespace
+        if " " in username:
+            json_response["whitespace"] = 1
+        
+        # Check if username is only numbers
+        if username.isdigit():
+            json_response["numeric"] = 1
+        
+        # Check if username is between 5 to 30 letters
+        if len(username) > 32 or len(username) < 5:
+            json_response["between"] = 1
+
+        # Check if username is taken
+        if users.objects.filter(username=username).exists():
+            json_response["taken"] = 1
+
+        return JsonResponse(json_response)
     else:
         return HttpResponseForbidden("Method not Allowed")

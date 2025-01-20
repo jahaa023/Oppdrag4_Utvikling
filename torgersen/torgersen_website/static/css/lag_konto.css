@@ -69,6 +69,31 @@ form button:hover {
     text-decoration: underline;
 }
 
+.username-validate-container {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: solid 1px black;
+    background-color: rgb(235, 235, 235);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.username-validate-container p{
+    margin: 0;
+    font-weight: 600;
+    opacity: 0.5;
+}
+
+.username-validate-container ul {
+    margin: 0;
+    opacity: 0.5;
+}
+
+.show-password-checkbox {
+    width: 15px;
+    height: 15px;
+}
+
 @media screen and (max-width: 500px) {
     .create-account-container {
         width: 75%;

@@ -1,1 +1,15 @@
 /* Stylesheet with rules for every page */
+
+:root {
+    --primary-green: rgb(50, 141, 50);
+    --warning-red: rgb(255, 66, 66);
+}
+
+body {
+    background-color: rgb(235, 235, 235);
+    margin: 0;
+}
+
+* {
+    font-family: "Montserrat", serif;
+}

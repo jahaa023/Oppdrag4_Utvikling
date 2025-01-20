@@ -1,1 +1,75 @@
 /* Stylesheet for login page */
+
+.login-container {
+    padding: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 350px;
+    height: fit-content;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    max-height: 80vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.login-container h1 {
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.login-warning {
+    width: 100%;
+    text-align: left;
+    color: var(--warning-red);
+}
+
+.logo {
+    width: 100%;
+    height: 140px;
+}
+
+form input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-indent: 5px;
+}
+
+form button {
+    padding: 10px;
+    border: solid 4px var(--primary-green);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    color: var(--primary-green);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+form button:hover {
+    color: white;
+    background-color: var(--primary-green);
+}
+
+.lag-konto {
+    color: var(--primary-green);
+}
+
+@media screen and (max-width: 500px) {
+    .login-container {
+        width: 75%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}

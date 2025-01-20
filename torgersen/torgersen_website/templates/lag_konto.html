@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torgersen - Lag konto</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
         {{universal_css | safe}}
     </style>
@@ -12,11 +16,16 @@
     </style>
 </head>
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{form}}
-        <button type="submit">Lag konto</button>
-    </form>
+    <div class="create-account-container">
+        <h1>Lag en konto</h1>
+        <p class="create-account-warning" id="error-warning"></p>
+        <form id="create-account-form" action="/create_account_form_handler" method="post">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" title="Lag konto">Lag konto</button>
+        </form>
+        <a href="/" class="backtologin">Tilbake til logg inn siden</a>
+    </div>
 </body>
 <script>
     {{universal_js | safe}}

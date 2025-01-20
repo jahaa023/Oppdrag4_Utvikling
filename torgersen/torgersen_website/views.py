@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import LoginForm
+from .forms import LoginForm, CreateAccountForm
 
 # Create your views here.
 
@@ -12,4 +12,6 @@ def index(request):
 
 # Renders template for account creation page
 def lag_konto(request):
-    return render(request, "lag_konto.html")
+    context = {}
+    context["form"] = CreateAccountForm()
+    return render(request, "lag_konto.html", context)

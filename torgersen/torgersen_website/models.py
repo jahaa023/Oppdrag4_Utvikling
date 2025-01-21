@@ -20,3 +20,4 @@ class orders(models.Model):
     translate_to = models.CharField(max_length=64)
     description = models.CharField(max_length=500)
     timestamp = models.CharField(max_length=64)
+    cancelled = models.BooleanField(default=False)

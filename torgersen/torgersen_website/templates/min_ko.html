@@ -12,7 +12,7 @@
         {{universal_css | safe}}
     </style>
     <style>
-        {{hovedside_css | safe}}
+        {{min_ko_css | safe}}
     </style>
 </head>
 <body>
@@ -23,7 +23,7 @@
             <div class="header-divider"></div>
             <a href="/bestill">Bestill oversettelse</a>
             <div class="header-divider"></div>
-            <a href="/min_ko">Min kø</a>
+            <a href="/hovedside">Hovedside</a>
             <div class="header-divider"></div>
             <a href="/logout">Logg ut</a>
         </div>
@@ -32,17 +32,39 @@
     <div class="mobile-dropdown-container" id="mobile-dropdown-container">
         <a href="">Kontakt</a>
         <a href="/bestill">Bestill oversettelse</a>
-        <a href="/min_ko">Min kø</a>
+        <a href="/hovedside">Hovedside</a>
         <a href="/logout">Logg ut</a>
     </div>
+    <div id="dark-container"></div>
     <div class="content">
-        <h1>Velkommen {{user.full_name}}</h1>
+        <h1>Min kø</h1>
+        <p>Her kan du se dine bestillinger.</p>
+        <p class="orders-warning" id="error-warning"></p>
+        {% if orders %}
+            {% for order in orders %}
+                <div class="order-container" id="ordercontainer_{{order.id}}">
+                    <b class="order-counter">#{{forloop.counter}}</b>
+                    <h1>{{order.book}}</h1>
+                    <i>Bestilt: {{order.timestamp}}</i>
+                    <p><b>Forfatter:</b> {{order.author}}</p>
+                    <p><b>Original språk:</b> {{order.translate_from}}</p>
+                    <p><b>Oversett til:</b> {{order.translate_to}}</p>
+                    <p><b>Beskrivelse/Mer info:</b></p>
+                    <div class="order-description">
+                        {{order.description}}
+                    </div>
+                    <button class="order-cancel-button" onclick="cancelOrderModal({{order.id}})" title="Kanseller bestilling">Kanseller bestilling</button>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Ser ut som at du ikke har bestilt noe. Du kan bestille en oversettelse gjennom <a href="/bestill">bestillings</a> siden.</p>
+        {% endif %}
     </div>
 </body>
 <script>
     {{universal_js | safe}}
 </script>
 <script>
-    {{hovedside_js | safe}}
+    {{min_ko_js | safe}}
 </script>
 </html>

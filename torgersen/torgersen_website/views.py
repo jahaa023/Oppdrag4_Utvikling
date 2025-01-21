@@ -241,3 +241,123 @@ def place_order(request):
             return JsonResponse({"error" : "invalid"})
     else:
         return HttpResponseForbidden("Method not Allowed")
+
+# Renders modal that thanks user for order
+def thank_you_modal(request):
+    if request.method == "POST":
+        # If user is not logged in, redirect
+        if 'user_id' not in request.session:
+            return HttpResponseRedirect("/")
+
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            context = {}
+
+            # Get data
+            book = form.cleaned_data["book"]
+            author = form.cleaned_data["author"]
+
+            # Pass into context
+            context["book"] = book
+            context["author"] = author
+
+            # Get css file
+            static_dir = os.getcwd() + '\\torgersen_website\\static'
+            with open(static_dir + '\\css\\thank_you.css', 'r') as file:
+                context["thank_you_css"] = file.read()
+            
+            # Get user information for context
+            user_id = request.session.get("user_id")
+            user = users.objects.get(user_id=user_id)
+            context["user"] = user
+
+            return render(request, "thank_you_modal.html", context)
+        else:
+            return HttpResponse("error")
+
+# Renders a page where users can see their orders
+def min_ko(request):
+    # If user is not logged in, redirect
+    if 'user_id' not in request.session:
+        return HttpResponseRedirect("/")
+
+    # Get static files
+    context = importStaticFiles("min_ko")
+
+    # Get user information
+    user_id = request.session.get("user_id")
+    user = users.objects.get(user_id=user_id)
+    context["user"] = user
+
+    # Get the users orders that arent cancelled
+    user_orders = orders.objects.filter(user_id=user_id, cancelled=False)
+    context["orders"] = user_orders
+
+    return render(request, "min_ko.html", context)
+
+# Renders modal to confirm cancellation of order
+def cancel_order_modal(request):
+    if request.method == "POST":
+        # If user is not logged in, redirect
+        if 'user_id' not in request.session:
+            return HttpResponseRedirect("/")
+        else:
+            # Get user id
+            user_id = request.session.get("user_id")
+        
+        context = {}
+
+        # Convert post data to dict from json
+        data = json.loads(request.body)
+        order_id = data.get("order_id")
+
+        # Check if the order belongs to the logged in user and if order is not already cancelled
+        if orders.objects.filter(user_id=user_id, id=order_id, cancelled=False).exists():
+            order = orders.objects.get(id=order_id)
+            context["book"] = order.book
+            context["order_id"] = order_id
+        else:
+            return HttpResponse("error")
+        
+        # Get css file
+        static_dir = os.getcwd() + '\\torgersen_website\\static'
+        with open(static_dir + '\\css\\cancel_order.css', 'r') as file:
+            context["cancel_order_css"] = file.read()
+
+        # Return modal
+        return render(request, "cancel_order_modal.html", context)
+    else:
+        return HttpResponse("error")
+
+# Cancels order by putting cancelled column to true
+def cancel_order(request):
+    if request.method == "POST":
+        # If user is not logged in, redirect
+        if 'user_id' not in request.session:
+            return HttpResponseRedirect("/")
+        else:
+            # Get user id
+            user_id = request.session.get("user_id")
+        
+        # Get order id
+        if "order_id" in request.POST:
+            order_id = request.POST.get("order_id")
+        else:
+            return JsonResponse({"error" : "error"})
+        
+        # Check if the order belongs to the logged in user and if order is not already cancelled
+        if orders.objects.filter(user_id=user_id, id=order_id, cancelled=False).exists():
+            order = orders.objects.get(id=order_id)
+        else:
+            return JsonResponse({"error" : "error"})
+        
+        # Cancel order
+        order.cancelled = True
+        order.save()
+
+        # Return name of div to delete
+        div_id = "ordercontainer_" + order_id
+
+        return JsonResponse({"div_id" : div_id, "ok" : 1})
+    else:
+        return HttpResponse("error")

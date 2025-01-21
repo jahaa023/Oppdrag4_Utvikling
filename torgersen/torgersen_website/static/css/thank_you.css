@@ -1,0 +1,44 @@
+/* Stylesheet for thank you modal */
+
+.thank_you_container {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 50%;
+}
+
+.thank_you_container h1 {
+    font-size: 1.3rem;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: solid 4px var(--primary-green);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    color: var(--primary-green);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+button:hover {
+    color: white;
+    background-color: var(--primary-green);
+}
+
+@media screen and (max-width: 770px) {
+    .thank_you_container {
+        width: 80%;
+    }
+}

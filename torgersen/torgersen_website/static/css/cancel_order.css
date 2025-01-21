@@ -1,0 +1,67 @@
+/* Stylesheet for cancel order modal */
+
+.cancel-order-container {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 50%;
+}
+
+.cancel-order-button-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: solid 4px var(--warning-red);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    color: var(--warning-red);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#hide-modal {
+    color: grey;
+    border: solid 4px grey;
+}
+
+button:hover {
+    color: white;
+    background-color: var(--warning-red);
+}
+
+#hide-modal:hover {
+    color: white;
+    background-color: grey;
+}
+
+#ok-button {
+    color: var(--primary-green);
+    border: solid 4px var(--primary-green);
+}
+
+#ok-button:hover {
+    color: white;
+    background-color: var(--primary-green);
+}
+
+@media screen and (max-width: 770px) {
+    .cancel-order-container {
+        width: 80%;
+    }
+}

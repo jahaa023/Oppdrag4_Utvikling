@@ -39,27 +39,65 @@ document.getElementById("order-form").addEventListener("submit", function(e) {
         body: formData
     })
 
+    // Convert response to json
     .then(response => response.json())
 
     .then(data => {
+        // Enable button after 200 ms
         setTimeout(function(){
             submitbutton.disabled = false;
         }, 200)
+
+        // Switch for potential errors
         switch(data.error) {
             case "invalid":
-                showError("Noe gikk galt. Vær sikker på at informasjonen du skrev inn er riktig.", "indiv");
+                // If formdata is invalid (inputs are empty or email isnt an email etc.)
+                showError("Noe gikk galt. Vær sikker på at informasjonen du skrev inn er riktig.");
                 break;
         }
 
+        // If everything went well
         if (data.ok == 1) {
-            showError("Bestilling lagret! Du kan se dine bestillinger på 'Min kø'.")
+            // Show thank you modal when user has ordered
+            var url = "/thank_you_modal";
+
+            // POST the form to get the author and book name
+            fetch(url, {
+                method:'POST',
+                body: formData
+            })
+
+            // Convert the response into the html it responded with
+            .then(response => response.text())
+
+            // Put the html into a container that covers screen with a transparent black background
+            .then(html => {
+                var darkContainer = document.getElementById("dark-container");
+                darkContainer.innerHTML = html;
+                darkContainer.style.display = "inline"
+            })
+
+            // Add event listener for "ok" button inside the modal
+            .then(function() {
+                document.getElementById("hide-modal").addEventListener("click", function() {
+                    var darkContainer = document.getElementById("dark-container");
+                    darkContainer.style.display = "none";
+                    darkContainer.innerHTML = "";
+                })
+            })
+
+            .catch(error => {
+                // Fail safe if modal fails to load
+                alert("Tusen takk for din bestilling.")
+            });
         }
     })
 
     .catch(error => {
+        // If there was an error
         setTimeout(function(){
             submitbutton.disabled = false;
         }, 200)
-        showError("Noe gikk galt. Vennligst prøv igjen senere.", "indiv")
+        showError("Noe gikk galt. Vennligst prøv igjen senere.")
     });
 });

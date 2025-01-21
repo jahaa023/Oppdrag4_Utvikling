@@ -11,5 +11,9 @@ urlpatterns = [
     path("hovedside", views.hovedside, name="hovedside"),
     path("logout", views.logout, name="logout"),
     path("bestill", views.bestill, name="bestill"),
-    path("place_order", views.place_order, name="place_order")
+    path("place_order", views.place_order, name="place_order"),
+    path("min_ko", views.min_ko, name="min_ko"),
+    path("thank_you_modal", views.thank_you_modal, name="thank_you_modal"),
+    path("cancel_order_modal", views.cancel_order_modal, name="cancel_order_modal"),
+    path("cancel_order", views.cancel_order, name="cancel_order")
 ]

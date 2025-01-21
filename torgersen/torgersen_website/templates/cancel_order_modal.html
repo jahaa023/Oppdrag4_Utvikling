@@ -1,0 +1,14 @@
+<style>
+    {{cancel_order_css | safe}}
+</style>
+<div class="cancel-order-container" id="cancel-modal">
+    <h1>Er du sikker på at du vil kansellere din bestilling for boken {{book}}?</h1>
+    <form action="/cancel_order" id="cancel-form" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="order_id" value="{{order_id}}">
+        <div class="cancel-order-button-container">
+            <button type="submit" name="yes" value="1">Ja</button>
+            <button type="button" id="hide-modal">Avbryt</button>
+        </div>
+    </form>
+</div>

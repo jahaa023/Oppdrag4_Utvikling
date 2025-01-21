@@ -1,7 +1,7 @@
 // JavaScript file for every page
 
 // Shows an error in red text when something goes wrong
-function showError(error, indiv) {
+function showError(error, indiv = null) {
     var errorContainer = document.getElementById("error-warning");
 
     // Replace norwegian charchters with unicode escape sequences

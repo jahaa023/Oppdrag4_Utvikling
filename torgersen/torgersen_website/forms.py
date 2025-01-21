@@ -19,4 +19,4 @@ class OrderForm(forms.Form):
     author = forms.CharField(label="", max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Forfatter til boken'}))
     translate_from = forms.CharField(label="", max_length=64, widget=forms.TextInput(attrs={'placeholder': 'Språket boken er i'}))
     translate_to = forms.CharField(label="", max_length=64, widget=forms.TextInput(attrs={'placeholder': 'Språket du vil oversette til'}))
-    description = forms.CharField(label='', required=False, max_length=500, widget=forms.Textarea(attrs={'placeholder': 'Beskrivelse eller informasjon som du syntes kan være viktig'}))
+    description = forms.CharField(label='', max_length=500, widget=forms.Textarea(attrs={'placeholder': 'Beskrivelse eller informasjon som du syntes kan være viktig'}))

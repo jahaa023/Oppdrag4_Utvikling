@@ -16,14 +16,17 @@ document.getElementById("create-account-form").addEventListener("submit", functi
         body: formData
     })
 
+    // Convert response to json
     .then(response => response.json())
 
     .then(data => {
         setTimeout(function(){
             submitbutton.disabled = false;
         }, 200)
+        // Switch for potential errors
         switch(data.error) {
             case "invalid":
+                // If form data is invalid
                 showError("Noe gikk galt. Vær sikker på at informasjonen du skrev inn er riktig.", "indiv");
                 break;
             case "username_taken":
@@ -33,19 +36,23 @@ document.getElementById("create-account-form").addEventListener("submit", functi
                 showError("Denne e-post adressen er allerede registrert til en konto.", "indiv");
                 break;
             case "ascii":
+                // If username contains non english chars
                 showError("Brukernavnet ditt kan ikke inneholde norske bokstaver eller mellomrom.", "indiv");
                 break;
             case "numeric":
+                // If username only contains numbers
                 showError("Brukernavnet ditt kan ikke bare inneholde tall.", "indiv");
                 break;
         }
 
+        // If account was created
         if (data.redirect == 1) {
             window.location = "/hovedside"
         }
     })
 
     .catch(error => {
+        // If anything goes wrong
         setTimeout(function(){
             submitbutton.disabled = false;
         }, 200)
@@ -142,6 +149,7 @@ document.getElementById("id_password").addEventListener("keyup", function() {
     // Check if password contains special chars
     document.getElementById("password-special").style.color = "var(--warning-red)";
 
+    // For each letter in password, check if letter is not inside blacklist
     var blacklist = "abcdefghijklmnopqrstuvxyz0123456789";
     var char = "";
     for (let i = 0; i < password.length; i++) {

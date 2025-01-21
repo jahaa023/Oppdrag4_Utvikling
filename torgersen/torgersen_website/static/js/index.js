@@ -34,12 +34,14 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
                 break;
         }
 
+        // If login was successfull, redirect
         if (data.redirect == 1) {
             window.location = "/hovedside";
         }
     })
 
     .catch(error => {
+        // If anything goes wrong
         setTimeout(function(){
             submitbutton.disabled = false;
         }, 200)

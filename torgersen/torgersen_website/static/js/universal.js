@@ -16,8 +16,10 @@ function showError(error, indiv = null) {
     errorContainer.innerText = error;
     errorContainer.style.display = "block";
 
+    // Scroll to top of screen to where container containing error is
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (indiv == "indiv") {
+        // If error container is inside a overflow y scroll div, scroll the div, not the body
         errorContainer.scrollIntoView()
     }
 }

@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpResponseRedirect
 from .forms import LoginForm, CreateAccountForm, OrderForm
-from .models import users
+from .models import users, orders
 from django.contrib.auth.hashers import make_password, check_password
 import os
 import json
+from datetime import datetime
 
 # Create your views here.
 
@@ -199,3 +200,44 @@ def bestill(request):
     context["form"] = OrderForm()
 
     return render(request, "bestill.html", context)
+
+# Function for handling order form
+def place_order(request):
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            # Get data
+            book = form.cleaned_data["book"]
+            author = form.cleaned_data["author"]
+            translate_from = form.cleaned_data["translate_from"]
+            translate_to = form.cleaned_data["translate_to"]
+            description = form.cleaned_data["description"]
+
+            # Get user id
+            if 'user_id' not in request.session:
+                return JsonResponse({"error" : "invalid"})
+            else:
+                user_id = request.session.get("user_id")
+            
+            # Get timestamp
+            now = datetime.now()
+            timestamp = now.strftime("%d-%m-%Y %H:%M")
+
+            # Register order to database
+            order = orders(
+                user_id=user_id,
+                book=book,
+                author=author,
+                translate_from=translate_from,
+                translate_to=translate_to,
+                description=description,
+                timestamp=timestamp
+            )
+
+            order.save()
+
+            return JsonResponse({"ok" : 1})
+        else:
+            return JsonResponse({"error" : "invalid"})
+    else:
+        return HttpResponseForbidden("Method not Allowed")

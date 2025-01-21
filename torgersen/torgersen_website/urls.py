@@ -10,5 +10,6 @@ urlpatterns = [
     path("username_validate", views.username_validate, name="username_validate"),
     path("hovedside", views.hovedside, name="hovedside"),
     path("logout", views.logout, name="logout"),
-    path("bestill", views.bestill, name="bestill")
+    path("bestill", views.bestill, name="bestill"),
+    path("place_order", views.place_order, name="place_order")
 ]

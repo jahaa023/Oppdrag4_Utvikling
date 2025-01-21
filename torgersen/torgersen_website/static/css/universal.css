@@ -13,3 +13,101 @@ body {
 * {
     font-family: "Montserrat", serif;
 }
+
+header {
+    width: 100%;
+    height: 80px;
+    background-color: var(--primary-green);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 999;
+}
+
+.header-logo {
+    margin-left: 15px;
+    height: 50px;
+}
+
+.header-desktop-button-container {
+    width: calc(70% - 15px);
+    margin-right: 15px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: right;
+}
+
+.header-desktop-button-container a {
+    color: white;
+    text-decoration: none;
+    top: 0;
+    transition: top ease 0.5s;
+    position: relative;
+}
+
+.header-divider {
+    height: 30%;
+    width: 2px;
+    border-radius: 25%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-desktop-button-container a:hover {
+    text-decoration: underline;
+    top: -5px;
+}
+
+.mobile-dropdown-button {
+    display: none;
+}
+
+.mobile-dropdown-container {
+    display: none;
+}
+
+@media screen and (max-width: 705px) {
+    .header-desktop-button-container {
+        display: none;
+    }
+
+    .mobile-dropdown-button {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 80px;
+        height: 80px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        background-image: url(/static/img/icons/dropdown-white.svg);
+        background-position: center;
+        background-size: 50%;
+        background-repeat: no-repeat;
+    }
+
+    .mobile-dropdown-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: calc(100% - 30px);
+        height: calc(100vh - 110px);
+        padding: 15px;
+        z-index: 998;
+        background-color: var(--primary-green);
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mobile-dropdown-container a {
+        color: white;
+        font-size: 2rem;
+    }
+}

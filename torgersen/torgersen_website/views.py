@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
-from .forms import LoginForm, CreateAccountForm
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpResponseRedirect
+from .forms import LoginForm, CreateAccountForm, OrderForm
 from .models import users
 from django.contrib.auth.hashers import make_password, check_password
 import os
@@ -163,3 +163,39 @@ def username_validate(request):
         return JsonResponse(json_response)
     else:
         return HttpResponseForbidden("Method not Allowed")
+
+# Renders template for main page
+def hovedside(request):
+    # If user is not logged in, redirect
+    if 'user_id' not in request.session:
+        return HttpResponseRedirect("/")
+
+    # Get static files
+    context = importStaticFiles("hovedside")
+
+    # Get user information for context
+    user_id = request.session.get("user_id")
+    user = users.objects.get(user_id=user_id)
+    context["user"] = user
+
+    return render(request, "hovedside.html", context)
+
+# Logs user out
+def logout(request):
+    # Flush session variables
+    request.session.flush()
+    return HttpResponseRedirect("/")
+
+# renders page for ordering translation of books
+def bestill(request):
+    # If user is not logged in, redirect
+    if 'user_id' not in request.session:
+        return HttpResponseRedirect("/")
+
+    # Get static files
+    context = importStaticFiles("bestill")
+
+    # Get form for placing order
+    context["form"] = OrderForm()
+
+    return render(request, "bestill.html", context)

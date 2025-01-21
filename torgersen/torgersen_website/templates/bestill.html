@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torgersen - Bestill oversettelse</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        {{universal_css | safe}}
+    </style>
+    <style>
+        {{bestill_css | safe}}
+    </style>
+</head>
+<body>
+    <header>
+        <img draggable="false" class="header-logo" src="/static/img/logo_invert.svg" alt="Torgersen Logo">
+        <div class="header-desktop-button-container">
+            <a href="">Kontakt</a>
+            <div class="header-divider"></div>
+            <a href="/hovedside">Hovedside</a>
+            <div class="header-divider"></div>
+            <a href="">Min kø</a>
+            <div class="header-divider"></div>
+            <a href="/logout">Logg ut</a>
+        </div>
+        <button class="mobile-dropdown-button" id="mobile-dropdown-button"></button>
+    </header>
+    <div class="mobile-dropdown-container" id="mobile-dropdown-container">
+        <a href="">Kontakt</a>
+        <a href="/hovedside">Hovedside</a>
+        <a href="">Min kø</a>
+        <a href="/logout">Logg ut</a>
+    </div>
+    <div class="content">
+        <h1>Bestill oversettelse av bok</h1>
+        <p class="order-warning" id="error-warning"></p>
+        <form action="/place_order" method="post" id="order-form">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" title="Bestill oversettelse">Bestill oversettelse</button>
+        </form>
+    </div>
+</body>
+<script>
+    {{universal_js | safe}}
+</script>
+<script>
+    {{bestill_js | safe}}
+</script>
+</html>

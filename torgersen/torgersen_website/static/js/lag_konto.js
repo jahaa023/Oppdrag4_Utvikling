@@ -5,6 +5,10 @@ document.getElementById("create-account-form").addEventListener("submit", functi
     e.preventDefault();
     formData = new FormData(this);
 
+    // Disable button to prevent spam
+    var submitbutton = document.getElementById("create-account-button");
+    submitbutton.disabled = true;
+
     // Do post request
     var url = "/create_account_form_handler";
     fetch(url, {
@@ -15,21 +19,24 @@ document.getElementById("create-account-form").addEventListener("submit", functi
     .then(response => response.json())
 
     .then(data => {
+        setTimeout(function(){
+            submitbutton.disabled = false;
+        }, 200)
         switch(data.error) {
             case "invalid":
-                showError("Noe gikk galt. Vær sikker på at informasjonen du skrev inn er riktig.");
+                showError("Noe gikk galt. Vær sikker på at informasjonen du skrev inn er riktig.", "indiv");
                 break;
             case "username_taken":
-                showError("Dette brukernavnet er tatt. Vennligst prøv et annet.");
+                showError("Dette brukernavnet er tatt. Vennligst prøv et annet.", "indiv");
                 break;
             case "email_registered":
-                showError("Denne e-post adressen er allerede registrert til en konto.");
+                showError("Denne e-post adressen er allerede registrert til en konto.", "indiv");
                 break;
             case "ascii":
-                showError("Brukernavnet ditt kan ikke inneholde norske bokstaver eller mellomrom.");
+                showError("Brukernavnet ditt kan ikke inneholde norske bokstaver eller mellomrom.", "indiv");
                 break;
             case "numeric":
-                showError("Brukernavnet ditt kan ikke bare inneholde tall.");
+                showError("Brukernavnet ditt kan ikke bare inneholde tall.", "indiv");
                 break;
         }
 
@@ -39,7 +46,10 @@ document.getElementById("create-account-form").addEventListener("submit", functi
     })
 
     .catch(error => {
-        showError("Noe gikk galt. Vennligst prøv igjen senere.")
+        setTimeout(function(){
+            submitbutton.disabled = false;
+        }, 200)
+        showError("Noe gikk galt. Vennligst prøv igjen senere.", "indiv")
     });
 });
 

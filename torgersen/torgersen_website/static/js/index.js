@@ -2,6 +2,10 @@
 
 // Event listener for login form
 document.getElementById("login-form").addEventListener("submit", function(e) {
+    // Disable button to prevent spam
+    var submitbutton = document.getElementById("login-button");
+    submitbutton.disabled = true;
+
     e.preventDefault();
     formData = new FormData(this);
 
@@ -17,6 +21,10 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
 
     // Handle response data
     .then(data => {
+        setTimeout(function(){
+            submitbutton.disabled = false;
+        }, 200)
+
         switch(data.error) {
             case "invalid":
                 showError("Noe gikk galt. Vær sikker på at informasjonen du skrev inn er riktig.");
@@ -32,6 +40,9 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
     })
 
     .catch(error => {
+        setTimeout(function(){
+            submitbutton.disabled = false;
+        }, 200)
         showError("Noe gikk galt. Prøv igjen senere.");
     });
 });

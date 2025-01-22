@@ -19,5 +19,6 @@ urlpatterns = [
     path("admin_dashboard", views.admin_dashboard, name="admin_dashboard"),
     path("admin_login", views.admin_login, name="admin_login"),
     path("admin_login_form_handler", views.admin_login_form_handler, name="admin_login_form_handler"),
-    path("kontakt", views.kontakt, name="kontakt")
+    path("kontakt", views.kontakt, name="kontakt"),
+    path("admin_change_role", views.admin_change_role, name="admin_change_role")
 ]

@@ -20,11 +20,12 @@
         <h1>Torgersen admin</h1>
         <a href="/logout">Logg ut</a>
     </div>
+    <div id="popup"></div>
     <div class="content">
         <div class="table-container">
             <table>
                 <tr>
-                    <th style="background-color: rgb(170, 170, 170);" colspan="5">Brukere</th>
+                    <th style="background-color: rgb(170, 170, 170);" colspan="6">Brukere</th>
                 </tr>
                 <tr>
                     <th>Bruker ID</th>
@@ -32,6 +33,7 @@
                     <th>Full navn</th>
                     <th>E-post</th>
                     <th>Rolle</th>
+                    <th>Endre rolle</th>
                 </tr>
                 {% for user in users %}
                     <tr>
@@ -39,7 +41,8 @@
                         <td>{{user.username}}</td>
                         <td>{{user.full_name}}</td>
                         <td>{{user.email}}</td>
-                        <td>{{user.role}}</td>
+                        <td id="tabletd_role_{{user.user_id}}">{{user.role}}</td>
+                        <td><button onclick="changeRole('{{user.user_id}}')">Endre rolle</button></td>
                     </tr>
                 {% endfor %}
             </table>

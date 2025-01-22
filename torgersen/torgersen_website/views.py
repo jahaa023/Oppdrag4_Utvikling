@@ -265,7 +265,7 @@ def thank_you_modal(request):
             static_dir = os.getcwd() + '\\torgersen_website\\static'
             with open(static_dir + '\\css\\thank_you.css', 'r') as file:
                 context["thank_you_css"] = file.read()
-            
+
             # Get user information for context
             user_id = request.session.get("user_id")
             user = users.objects.get(user_id=user_id)
@@ -440,3 +440,43 @@ def kontakt(request):
     context = importStaticFiles("kontakt")
 
     return render(request, "kontakt.html", context)
+
+# Changes role of requested user
+def admin_change_role(request):
+    if request.method == "POST":
+        # If user is not logged in, redirect
+        if 'user_id' not in request.session:
+            return HttpResponseRedirect("/")
+        else:
+            # Get user id
+            user_id = request.session.get("user_id")
+
+            # Check if user is admin, if not: redirect
+            if not users.objects.filter(user_id=user_id, role="admin").exists():
+                return HttpResponseRedirect("/")
+        
+        # Get posted user id
+        data = json.loads(request.body)
+
+        if "user_id" in data:
+            user_id = data.get("user_id")
+        else:
+            return JsonResponse({"error" : "error"})
+        
+        # Get users role
+        user = users.objects.get(user_id=user_id)
+
+        # If role is user, change to admin and vice versa
+        if user.role == "user":
+            user.role = "admin"
+        else:
+            user.role = "user"
+
+        user.save()
+
+        # Return the td tag that the role of the user contains
+        div_id = "tabletd_role_" + user_id
+
+        return JsonResponse({"div_id" : div_id, "success" : 1, "newrole" : user.role})
+    else :
+        return HttpResponseForbidden("Method not allowed")

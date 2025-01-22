@@ -10,6 +10,7 @@ class users(models.Model):
     full_name = models.CharField(max_length=128)
     password = models.CharField(max_length=255)
     email = models.CharField(max_length=40)
+    role = models.CharField(max_length=64, default="user")
 
 # Table for orders
 class orders(models.Model):

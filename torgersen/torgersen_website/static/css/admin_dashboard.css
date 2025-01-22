@@ -1,0 +1,51 @@
+/* Stylesheet for admin dashboard */
+
+.header {
+    width: 100%;
+    background-color: white;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: relative;
+}
+
+.header h1 {
+    margin-left: 20px;
+    font-size: 1rem;
+}
+
+.header a {
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+}
+
+.content {
+    margin-top: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table-container {
+    max-width: 100%;
+    height: fit-content;
+    overflow-x: scroll;
+    border: solid 1px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr, td, th {
+    border: solid 1px black;
+    padding: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+}

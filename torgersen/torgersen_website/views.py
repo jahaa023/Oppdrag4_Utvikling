@@ -361,3 +361,82 @@ def cancel_order(request):
         return JsonResponse({"div_id" : div_id, "ok" : 1})
     else:
         return HttpResponse("error")
+
+# Renders the admin login page
+def admin_login(request):
+    # Get static files
+    context = importStaticFiles("admin_login")
+
+    context["form"] = LoginForm()
+
+    return render(request, "admin_login.html", context)
+
+# Handles admin login form
+def admin_login_form_handler(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            # Get data
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+
+            # Check if account exists
+            if not users.objects.filter(username=username).exists():
+                return JsonResponse({"error" : "wrong"})
+
+            # Check if password is correct
+            user = users.objects.get(username=username)
+            if not check_password(password, user.password):
+                return JsonResponse({"error" : "wrong"})
+            
+            # Check if user is an admin
+            if user.role != "admin":
+                return JsonResponse({"error" : "forbidden"})
+
+            # Set session variable
+            uuid_str = str(user.user_id)
+            request.session['user_id'] = uuid_str
+
+            # Redirect
+            return JsonResponse({"redirect" : 1})
+        else:
+            return JsonResponse({"error" : "invalid"})
+    else:
+        return HttpResponseForbidden("Method not Allowed")
+
+# Renders the admin dashboard
+def admin_dashboard(request):
+    # If user is not logged in, redirect
+    if 'user_id' not in request.session:
+        return HttpResponseRedirect("/")
+    else:
+        # Get user id
+        user_id = request.session.get("user_id")
+
+        # Check if user is admin, if not: redirect
+        if not users.objects.filter(user_id=user_id, role="admin").exists():
+            return HttpResponseRedirect("/")
+
+    # Get static files
+    context = importStaticFiles("admin_dashboard")
+
+    # Get users table for context
+    users_context = users.objects.all()
+    context["users"] = users_context
+
+    # Get orders table for context
+    orders_context = orders.objects.all()
+    context["orders"] = orders_context
+
+    return render(request, "admin_dashboard.html", context)
+
+# Renders contact page
+def kontakt(request):
+    # If user is not logged in, redirect
+    if 'user_id' not in request.session:
+        return HttpResponseRedirect("/")
+
+    # Get static files
+    context = importStaticFiles("kontakt")
+
+    return render(request, "kontakt.html", context)

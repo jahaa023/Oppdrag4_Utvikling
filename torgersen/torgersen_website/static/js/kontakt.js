@@ -1,4 +1,4 @@
-// JavaScript file for main page
+// JavaScript file for contact page
 
 // Event listener for dropdown button for mobile
 document.getElementById("mobile-dropdown-button").addEventListener("click", function() {
@@ -21,9 +21,4 @@ document.getElementById("mobile-dropdown-button").addEventListener("click", func
             dropdownButton.disabled = false;
         }, 200)
     }
-})
-
-// Event listener for button in hero image
-document.getElementById("order-button").addEventListener("click", function() {
-    window.location = "/bestill"
 })

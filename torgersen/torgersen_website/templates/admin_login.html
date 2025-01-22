@@ -12,15 +12,15 @@
         {{universal_css | safe}}
     </style>
     <style>
-        {{index_css | safe}}
+        {{admin_login_css | safe}}
     </style>
 </head>
 <body>
     <div class="login-container">
         <img class="logo" draggable="false" src="/static/img/logo.svg" alt="Torgersen Logo">
-        <h1>Logg inn</h1>
+        <h1>Logg inn som admin</h1>
         <p class="login-warning" id="error-warning"></p>
-        <form action="/login_form_handler" id="login-form" method="post">
+        <form action="/admin_login_form_handler" id="login-form" method="post">
             {% csrf_token %}
             {{form}}
             <div class="show-password-checkbox-container">
@@ -29,16 +29,13 @@
             </div>
             <button type="submit" id="login-button" title="Logg inn">Logg inn</button>
         </form>
-        Har ikke en konto? <a href="/lag_konto" class="lag-konto">Lag konto.</a>
-        <br>
-        <br>
-        Er du en administrator? <a class="lag-konto" href="/admin_login">Admin.</a>
+        <a href="/" class="lag-konto">Tilbake</a>
     </div>
 </body>
 <script>
     {{universal_js | safe}}
 </script>
 <script>
-    {{index_js | safe}}
+    {{admin_login_js | safe}}
 </script>
 </html>

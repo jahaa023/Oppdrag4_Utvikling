@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torgersen - Admin dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        {{universal_css | safe}}
+    </style>
+    <style>
+        {{admin_dashboard_css | safe}}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Torgersen admin</h1>
+        <a href="/logout">Logg ut</a>
+    </div>
+    <div class="content">
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th style="background-color: rgb(170, 170, 170);" colspan="5">Brukere</th>
+                </tr>
+                <tr>
+                    <th>Bruker ID</th>
+                    <th>Brukernavn</th>
+                    <th>Full navn</th>
+                    <th>E-post</th>
+                    <th>Rolle</th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.user_id}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.full_name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.role}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th style="background-color: rgb(170, 170, 170);" colspan="9">Bestillinger</th>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Bruker ID</th>
+                    <th>Bok</th>
+                    <th>Forfatter</th>
+                    <th>Oversett fra</th>
+                    <th>Oversett til</th>
+                    <th>Beskrivelse</th>
+                    <th>Tidspunkt</th>
+                    <th>Kansellert</th>
+                </tr>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{order.id}}</td>
+                        <td>{{order.user_id}}</td>
+                        <td>{{order.book}}</td>
+                        <td>{{order.author}}</td>
+                        <td>{{order.translate_from}}</td>
+                        <td>{{order.translate_to}}</td>
+                        <td>{{order.description}}</td>
+                        <td>{{order.timestamp}}</td>
+                        <td>{{order.cancelled}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    {{universal_js | safe}}
+</script>
+<script>
+    {{admin_dashboard_js | safe}}
+</script>
+</html>

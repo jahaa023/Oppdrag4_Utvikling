@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torgersen - Hoved side</title>
+    <title>Torgersen - Kontakt</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,14 +12,14 @@
         {{universal_css | safe}}
     </style>
     <style>
-        {{hovedside_css | safe}}
+        {{kontakt_css | safe}}
     </style>
 </head>
 <body>
     <header>
         <img draggable="false" class="header-logo" src="/static/img/logo_invert.svg" alt="Torgersen Logo">
         <div class="header-desktop-button-container">
-            <a href="/kontakt">Kontakt</a>
+            <a href="/hovedside">Hovedside</a>
             <div class="header-divider"></div>
             <a href="/bestill">Bestill oversettelse</a>
             <div class="header-divider"></div>
@@ -30,31 +30,22 @@
         <button class="mobile-dropdown-button" id="mobile-dropdown-button"></button>
     </header>
     <div class="mobile-dropdown-container" id="mobile-dropdown-container">
-        <a href="/kontakt">Kontakt</a>
+        <a href="/hovedside">Hovedside</a>
         <a href="/bestill">Bestill oversettelse</a>
         <a href="/min_ko">Min kø</a>
         <a href="/logout">Logg ut</a>
     </div>
     <div class="content">
-        <div class="hero-container">
-            <div class="hero"></div>
-            <div class="hero-content">
-                <div class="hero-text-container">
-                    <h1>Velkommen {{user.full_name}}</h1>
-                    <p>Torgersen er det ledende firmaet innen oversettelse av bøker</p>
-                    <button id="order-button">Bestill oversettelse</button>
-                </div>
-            </div>
-        </div>
+        <h1>Kontakt Torgersen</h1>
+        <p>Du kan kontakte Torgersen via e-post eller telefonnummer.</p>
+        <p>E-post: <a href="mailto:kontakt@torgersen.no">kontakt@torgersen.no</a></p>
+        <p>Telefon: <a href="tel:+4784632938">846 32 938</a></p>
     </div>
-    <footer>
-        <p>Torgersen 2025</p>
-    </footer>
 </body>
 <script>
     {{universal_js | safe}}
 </script>
 <script>
-    {{hovedside_js | safe}}
+    {{kontakt_js | safe}}
 </script>
 </html>

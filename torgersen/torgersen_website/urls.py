@@ -15,5 +15,9 @@ urlpatterns = [
     path("min_ko", views.min_ko, name="min_ko"),
     path("thank_you_modal", views.thank_you_modal, name="thank_you_modal"),
     path("cancel_order_modal", views.cancel_order_modal, name="cancel_order_modal"),
-    path("cancel_order", views.cancel_order, name="cancel_order")
+    path("cancel_order", views.cancel_order, name="cancel_order"),
+    path("admin_dashboard", views.admin_dashboard, name="admin_dashboard"),
+    path("admin_login", views.admin_login, name="admin_login"),
+    path("admin_login_form_handler", views.admin_login_form_handler, name="admin_login_form_handler"),
+    path("kontakt", views.kontakt, name="kontakt")
 ]
